@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUSTOMER INFO TRACKER</title>
+    <link rel="stylesheet" href="/styles.css"> 
+    <link rel="stylesheet" type="text/css" href="/css/main.css"> 
+</head>
+<body>
+    <div class="containerone">
+        <h1>CUSTOMER INFO TRACKER</h1>
+    </div>
+    <div class="formcontainer">
+        <form id="myForm" class="form" action="/submit" method="POST">
+            <label for="tell">PHONE NUMBER:</label>
+            <input type="number" id="tell" name="PHONE NUMBER" required>
+            <label for="email">EMAIL:</label>
+            <input type="text" id="email" name="EMAIL" required>
+            <div class="submit">
+                <button type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="messagecontainer" id="messageContainer"></div>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const phoneInput = document.getElementById("tell").value;
+            const emailInput = document.getElementById("email").value;
+            const messageContainer = document.getElementById("messageContainer");
+
+            // Client-side validation
+            if (phoneInput.trim() === "" && emailInput.trim() === "") {
+                showMessage("Please fill out the information first", messageContainer);
+            } else if (phoneInput.trim() === "" || emailInput.trim() === "") {
+                showMessage("Please fill out both fields", messageContainer);
+            } else if (!emailInput.includes("@")) {
+                showMessage("Please enter a valid email", messageContainer);
+            } else {
+                // Send data to the backend
+                try {
+                    const response = await fetch('/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({
+                            'PHONE NUMBER': phoneInput,
+                            'EMAIL': emailInput
+                        })
+                    });
+                    const result = await response.json();
+
+                    showMessage(result.message, messageContainer);
+                    if (response.ok) {
+                        setTimeout(clearForm, 4000); // Clear form only on success
+                    }
+                } catch (error) {
+                    showMessage("Error submitting form", messageContainer);
+                }
+            }
+        });
+
+        function showMessage(message, container) {
+            container.textContent = message;
+            setTimeout(() => {
+                container.textContent = "";
+            }, 4000);
+        }
+
+        function clearForm() {
+            document.getElementById("myForm").reset();
+        }
+    </script>
+</body>
+</html>
+
