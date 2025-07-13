@@ -54,5 +54,86 @@ form{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Style the submit button */
+.submit button {
+    background-color: #4a5a68; 
+    color:white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*Hover effect */
+.submit button:hover {
+    background-color: black; 
+
+}
+
+/* Responsive layout for phone screens */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .containerone, .formcontainer {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form label, .form input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .submit {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Style for the heading container */
+.containerone {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Make the heading text responsive */
+.containerone h1 {
+    font-size: 2em;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+/* Add spacing between heading and form */
+.formcontainer {
+    margin-top: 30px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .containerone h1 {
+        font-size: 1.5em; /* Smaller font on phones */
+    }
+
+    .formcontainer {
+        margin-top: 60px; /* Slightly more space on small screens */
+    }
+}
 
 
+
+
+
+
+
+
+
+/* .submit button {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+} */
